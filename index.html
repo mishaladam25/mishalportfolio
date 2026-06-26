@@ -98,7 +98,7 @@
     padding:0 clamp(20px,5vw,56px);
   }
 
-  /* ---------- Redesigned Hero Section ---------- */
+  /* ---------- Introduction Section ---------- */
   .hero{
     min-height:100vh;
     display:flex;
@@ -141,12 +141,6 @@
     letter-spacing:-0.02em;
     text-transform:uppercase;
     max-width:1400px;
-  }
-  h1.hero-title em{
-    font-style:italic;
-    font-weight:400;
-    color:var(--stone);
-    text-transform:none;
   }
 
   .hero-sub{
@@ -214,84 +208,123 @@
     .section-head .tag{text-align:left;}
   }
 
-  /* ---------- Video Reel Section (9 Slots) ---------- */
-  .reel-wrap{padding-bottom:140px;}
-  .reel{
-    display:flex;
-    flex-direction:column;
-    border-top:1px solid var(--hairline);
+  /* ---------- Redesigned Vertical Video Grid (9 Slots) ---------- */
+  .reel-wrap {
+    padding-bottom: 140px;
   }
-  .reel-item{
-    display:grid;
-    grid-template-columns:120px 1.1fr 1fr;
-    align-items:center;
-    gap:32px;
-    padding:34px 0;
-    border-bottom:1px solid var(--hairline);
-    cursor:pointer;
-    position:relative;
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 24px;
   }
-  .reel-index{
-    font-family:'JetBrains Mono', monospace;
-    font-size:13px;
-    color:var(--stone);
+  .video-card {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    background: none;
+    border: none;
+    text-align: left;
+    color: inherit;
+    width: 100%;
   }
-  .reel-title{
-    font-family:'Fraunces', serif;
-    font-size:clamp(24px, 3.2vw, 38px);
-    font-weight:600;
-    transition:color 0.3s ease, transform 0.3s ease;
+  .video-card-visual {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 16; /* Clean 9:16 portrait vertical standard */
+    background: var(--surface);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 18px;
+    border: 1px solid var(--hairline);
   }
-  .reel-item:hover .reel-title{
-    color:var(--sienna);
-    transform:translateX(6px);
+  .video-card-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(.16,1,.3,1), filter 0.4s ease;
   }
-  .reel-meta{
-    display:flex;
-    justify-content:flex-end;
-    align-items:center;
-    gap:28px;
-    font-family:'JetBrains Mono', monospace;
-    font-size:12px;
-    color:var(--stone);
+  .video-card:hover .video-card-visual img {
+    transform: scale(1.04);
   }
-  .reel-thumb{
-    position:fixed;
-    width:280px;
-    height:170px;
-    border-radius:4px;
-    overflow:hidden;
-    pointer-events:none;
-    opacity:0;
-    transform:scale(0.92);
-    transition:opacity 0.25s ease, transform 0.25s ease;
-    z-index:50;
-    box-shadow:0 30px 60px -10px rgba(0,0,0,0.6);
+  
+  /* Hover Play Overlay on Card */
+  .video-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(14, 14, 14, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
-  .reel-thumb img{width:100%;height:100%;object-fit:cover;}
-  .reel-thumb.show{opacity:1; transform:scale(1);}
-  .play-badge{
-    width:46px;height:46px;
-    border-radius:50%;
-    border:1px solid var(--hairline);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:background 0.3s ease, border-color 0.3s ease;
+  .video-card:hover .video-card-overlay {
+    opacity: 1;
   }
-  .reel-item:hover .play-badge{
-    background:var(--sienna);
-    border-color:var(--sienna);
+  .video-card-overlay .play-badge {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: var(--sienna);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(.16,1,.3,1);
   }
-  .play-badge svg{width:14px;height:14px;fill:var(--bone);}
-
-  @media (max-width:760px){
-    .reel-item{grid-template-columns:60px 1fr; gap:14px;}
-    .reel-meta{display:none;}
-    .reel-thumb{display:none;}
+  .video-card:hover .video-card-overlay .play-badge {
+    transform: scale(1);
+  }
+  .video-card-overlay svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--bone);
+    margin-left: 2px;
   }
 
-  /* ---------- Photo Split Segment (10 Slots with Explanations) ---------- */
+  /* Video Metadata info below card */
+  .video-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .video-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .video-card-index {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--sienna);
+    margin-top: 4px;
+  }
+  .video-card-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(18px, 1.8vw, 24px);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  .video-card-meta {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--stone);
+    border-top: 1px solid var(--hairline);
+    padding-top: 8px;
+    margin-top: 2px;
+  }
+
+  @media (max-width: 900px) {
+    .video-grid { grid-template-columns: repeat(2, 1fr); gap: 32px 20px; }
+  }
+  @media (max-width: 550px) {
+    .video-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Photo Split Segment (10 Slots) ---------- */
   .photo-split-container {
     display: flex;
     flex-direction: column;
@@ -304,7 +337,6 @@
     gap: clamp(40px, 8vw, 120px);
     align-items: center;
   }
-  /* Alternating layout structures for visual rhythm */
   .photo-row:nth-child(even) {
     grid-template-columns: 1fr 1.2fr;
   }
@@ -332,7 +364,6 @@
     filter: saturate(0.92) contrast(1.04);
     transition: transform 0.7s cubic-bezier(.16,1,.3,1), filter 0.5s ease;
   }
-  /* Give some slots variation in aspect ratios */
   .photo-row.tall-aspect .photo-side img {
     aspect-ratio: 4/5;
   }
@@ -371,12 +402,8 @@
       grid-template-columns: 1fr;
       gap: 28px;
     }
-    .photo-row:nth-child(even) .photo-side {
-      grid-column: 1;
-    }
-    .photo-row:nth-child(even) .text-side {
-      grid-column: 1;
-    }
+    .photo-row:nth-child(even) .photo-side { grid-column: 1; }
+    .photo-row:nth-child(even) .text-side { grid-column: 1; }
   }
 
   /* ---------- Footer Section ---------- */
@@ -422,6 +449,12 @@
     max-height:82vh;
     border-radius:4px;
     box-shadow:0 40px 90px rgba(0,0,0,0.6);
+  }
+  /* Lightbox video helper forcing accurate portrait playback size constraints */
+  .lightbox video.vertical-video-player {
+    max-width: 45vh; 
+    height: 80vh;
+    aspect-ratio: 9/16;
   }
   .lightbox-close{
     position:absolute;
@@ -479,10 +512,10 @@
     <section id="films">
       <div class="section-head">
         <h2>Moving Frames</h2>
-        <div class="tag">09 SELECTED REELS &mdash; HOVER TO PREVIEW, SELECT TO RESOLVE</div>
+        <div class="tag">09 VERTICAL SLOTS &mdash; PORTRAIT FRAME CONFIGURATION &bull; SELECT TO EXPAND</div>
       </div>
       <div class="reel-wrap">
-        <div class="reel" id="reelList">
+        <div class="video-grid" id="videoGrid">
           </div>
       </div>
     </section>
@@ -506,8 +539,6 @@
     </footer>
   </main>
 
-  <div class="reel-thumb" id="reelThumb"><img id="reelThumbImg" src="" alt=""></div>
-
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" id="lightboxClose">CLOSE ✕</button>
     <div id="lightboxContent"></div>
@@ -517,7 +548,7 @@
 <script>
   /* ---------------- Data Configurations ---------------- */
   
-  // 9 Video slots dataset
+  // 9 Video slots dataset (Optimized placeholders for 9:16 vertical imagery)
   const films = [
     {title:"Project Sequence Alpha", year:"2026", runtime:"01:42", role:"Creative Director", src:"videos/film01.mp4", poster:"images/film01-poster.jpg"},
     {title:"Dynamic Spatial Environments", year:"2026", runtime:"02:15", role:"Media Engineer", src:"videos/film02.mp4", poster:"images/film02-poster.jpg"},
@@ -544,42 +575,48 @@
     {src:"images/photo10.jpg", isTall: false, title:"Terminal Horizon Line", desc:"A clinical minimal framing emphasizing infinite linear convergence points over wide terrain assets."},
   ];
 
-  /* ---------------- Build Film Reel (9 Slots) ---------------- */
-  const reelList = document.getElementById('reelList');
-  const reelThumb = document.getElementById('reelThumb');
-  const reelThumbImg = document.getElementById('reelThumbImg');
+  /* ---------------- Build Vertical Video Grid (9 Slots) ---------------- */
+  const videoGrid = document.getElementById('videoGrid');
 
   films.forEach((f, i) => {
-    const row = document.createElement('div');
-    row.className = 'reel-item';
-    row.tabIndex = 0;
-    row.setAttribute('role','button');
-    row.setAttribute('aria-label', `Play film: ${f.title}`);
-    row.innerHTML = `
-      <div class="reel-index">${String(i+1).padStart(2,'0')}</div>
-      <div class="reel-title">${f.title}</div>
-      <div class="reel-meta">
-        <span>${f.role}</span>
-        <span>${f.runtime}</span>
-        <span>${f.year}</span>
-        <div class="play-badge" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    const card = document.createElement('div');
+    card.className = 'video-card';
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', `Play film slot: ${f.title}`);
+    
+    card.innerHTML = `
+      <div class="video-card-visual">
+        <img src="${f.poster}" alt="${f.title}" loading="lazy">
+        <div class="video-card-overlay">
+          <div class="play-badge">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
         </div>
-      </div>`;
-      
-    row.addEventListener('mouseenter', e => {
-      reelThumbImg.src = f.poster;
-      reelThumbImg.onerror = function(){ this.src = `https://picsum.photos/seed/${encodeURIComponent(f.title)}/560/340`; };
-      reelThumb.classList.add('show');
-    });
-    row.addEventListener('mousemove', e => {
-      reelThumb.style.left = (e.clientX + 24) + 'px';
-      reelThumb.style.top = (e.clientY - 90) + 'px';
-    });
-    row.addEventListener('mouseleave', () => reelThumb.classList.remove('show'));
-    row.addEventListener('click', () => openLightbox('video', f.src, `${f.title} — ${f.year} · ${f.role}`, f.poster));
-    row.addEventListener('keypress', e => { if(e.key === 'Enter') openLightbox('video', f.src, `${f.title} — ${f.year}`, f.poster); });
-    reelList.appendChild(row);
+      </div>
+      <div class="video-card-info">
+        <div class="video-card-header">
+          <span class="video-card-index">${String(i+1).padStart(2,'0')}</span>
+          <span class="video-card-title">${f.title}</span>
+        </div>
+        <div class="video-card-meta">
+          <span>${f.role}</span>
+          <span>${f.runtime}</span>
+          <span>${f.year}</span>
+        </div>
+      </div>
+    `;
+
+    // High quality vertical fallback generation rule
+    const imgEl = card.querySelector('img');
+    imgEl.onerror = function() {
+      this.onerror = null;
+      this.src = `https://picsum.photos/seed/${encodeURIComponent(f.title)}/540/960`;
+    };
+
+    card.addEventListener('click', () => openLightbox('video', f.src, `${f.title} — ${f.year} · ${f.role}`, f.poster));
+    card.addEventListener('keypress', e => { if(e.key === 'Enter') openLightbox('video', f.src, `${f.title} — ${f.year}`, f.poster); });
+    videoGrid.appendChild(card);
   });
 
   /* ---------------- Build Photo Split Layout (10 Slots) ---------------- */
@@ -589,7 +626,6 @@
     const row = document.createElement('div');
     row.className = 'photo-row' + (p.isTall ? ' tall-aspect' : '');
     
-    // Photo Side
     const photoSide = document.createElement('div');
     photoSide.className = 'photo-side';
     photoSide.tabIndex = 0;
@@ -606,7 +642,6 @@
     };
     photoSide.appendChild(img);
     
-    // Text Side
     const textSide = document.createElement('div');
     textSide.className = 'text-side';
     textSide.innerHTML = `
@@ -615,7 +650,6 @@
       <div class="photo-desc">${p.desc}</div>
     `;
     
-    // Wire up events
     photoSide.addEventListener('click', () => openLightbox('image', img.src, p.title));
     photoSide.addEventListener('keypress', e => { if(e.key === 'Enter') openLightbox('image', img.src, p.title); });
     
@@ -638,6 +672,7 @@
       lightboxContent.appendChild(img);
     } else {
       const video = document.createElement('video');
+      video.className = 'vertical-video-player';
       video.src = src;
       video.poster = poster || '';
       video.controls = true;
@@ -679,7 +714,6 @@
     const frame = Math.min(totalFrames, Math.max(1, Math.round(pct * totalFrames)));
     fcNow.textContent = String(frame).padStart(3,'0');
 
-    // Section highlighting logic
     const sections = ['top','films','photos','contact'];
     let current = sections[0];
     for(const id of sections){
