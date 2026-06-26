@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOVA REYES — Visual Work</title>
+<title>MISHAL HAMZAH — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,900;1,9..144,500&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -37,7 +37,7 @@
   a{color:inherit; text-decoration:none;}
   :focus-visible{outline:2px solid var(--sienna); outline-offset:3px;}
 
-  /* ---------- Frame counter (signature element) ---------- */
+  /* ---------- Frame Counter Progress Bar ---------- */
   .frame-counter{
     position:fixed;
     top:0; left:0;
@@ -65,7 +65,7 @@
     transition:width 0.1s linear;
   }
 
-  /* ---------- Nav ---------- */
+  /* ---------- Navigation Bar ---------- */
   nav{
     position:fixed;
     bottom:24px;
@@ -98,15 +98,15 @@
     padding:0 clamp(20px,5vw,56px);
   }
 
-  /* ---------- Hero ---------- */
+  /* ---------- Redesigned Hero Section ---------- */
   .hero{
     min-height:100vh;
     display:flex;
     flex-direction:column;
     justify-content:center;
     position:relative;
-    padding-top:90px;
-    padding-bottom:60px;
+    padding-top:120px;
+    padding-bottom:80px;
   }
   .hero-eyebrow{
     font-family:'JetBrains Mono', monospace;
@@ -136,41 +136,32 @@
   h1.hero-title{
     font-family:'Fraunces', serif;
     font-weight:900;
-    font-size:clamp(56px, 11vw, 168px);
-    line-height:0.92;
-    letter-spacing:-0.01em;
+    font-size:clamp(40px, 6.5vw, 90px);
+    line-height:1.05;
+    letter-spacing:-0.02em;
+    text-transform:uppercase;
+    max-width:1400px;
   }
   h1.hero-title em{
     font-style:italic;
-    font-weight:500;
+    font-weight:400;
     color:var(--stone);
+    text-transform:none;
   }
 
   .hero-sub{
-    margin-top:36px;
-    max-width:560px;
-    font-size:17px;
-    line-height:1.65;
+    margin-top:40px;
+    max-width:720px;
+    font-size: clamp(16px, 2vw, 20px);
+    line-height:1.6;
     color:var(--stone);
-  }
-  .hero-meta{
-    margin-top:56px;
-    display:flex;
-    gap:48px;
-    flex-wrap:wrap;
-    font-family:'JetBrains Mono', monospace;
-    font-size:12px;
-    color:var(--stone);
-  }
-  .hero-meta strong{
-    display:block;
-    color:var(--bone);
-    font-size:13px;
-    margin-bottom:6px;
     font-family:'Space Grotesk', sans-serif;
-    font-weight:500;
   }
-
+  .hero-sub strong {
+    color: var(--bone);
+    font-weight: 500;
+  }
+  
   .scroll-cue{
     position:absolute;
     bottom:40px;
@@ -195,14 +186,14 @@
     100%{opacity:0; transform:translateY(10px);}
   }
 
-  /* ---------- Section heads ---------- */
+  /* ---------- Section Headers ---------- */
   .section-head{
     display:flex;
     justify-content:space-between;
     align-items:flex-end;
     flex-wrap:wrap;
     gap:20px;
-    padding:120px 0 56px;
+    padding:140px 0 56px;
     border-bottom:1px solid var(--hairline);
     margin-bottom:64px;
   }
@@ -223,73 +214,7 @@
     .section-head .tag{text-align:left;}
   }
 
-  /* ---------- Photo masonry ---------- */
-  .masonry{
-    display:grid;
-    grid-template-columns:repeat(6, 1fr);
-    gap:18px;
-    padding-bottom:140px;
-  }
-  .photo-card{
-    position:relative;
-    border-radius:6px;
-    overflow:hidden;
-    background:var(--surface);
-    cursor:pointer;
-    grid-column:span 3;
-  }
-  .photo-card.wide{grid-column:span 4;}
-  .photo-card.narrow{grid-column:span 2;}
-  .photo-card.tall{grid-row:span 2;}
-
-  .photo-card img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-    aspect-ratio:4/5;
-    filter:saturate(0.92) contrast(1.04);
-    transition:transform 0.7s cubic-bezier(.16,1,.3,1), filter 0.5s ease;
-  }
-  .photo-card.wide img{aspect-ratio:16/10;}
-  .photo-card.tall img{aspect-ratio:3/4.6;}
-
-  .photo-card:hover img{
-    transform:scale(1.045);
-    filter:saturate(1.05) contrast(1.06);
-  }
-
-  .photo-overlay{
-    position:absolute;
-    inset:0;
-    display:flex;
-    flex-direction:column;
-    justify-content:flex-end;
-    padding:18px;
-    background:linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 55%);
-    opacity:0;
-    transition:opacity 0.35s ease;
-  }
-  .photo-card:hover .photo-overlay{opacity:1;}
-  .photo-overlay .pn{
-    font-family:'JetBrains Mono', monospace;
-    font-size:11px;
-    color:var(--sienna);
-    margin-bottom:6px;
-  }
-  .photo-overlay .pt{
-    font-family:'Fraunces', serif;
-    font-size:18px;
-    font-weight:500;
-  }
-
-  @media (max-width:880px){
-    .masonry{grid-template-columns:repeat(2,1fr);}
-    .photo-card, .photo-card.wide, .photo-card.narrow{grid-column:span 1;}
-    .photo-card.tall{grid-row:span 1;}
-  }
-
-  /* ---------- Video reel ---------- */
+  /* ---------- Video Reel Section (9 Slots) ---------- */
   .reel-wrap{padding-bottom:140px;}
   .reel{
     display:flex;
@@ -366,39 +291,95 @@
     .reel-thumb{display:none;}
   }
 
-  /* ---------- About strip ---------- */
-  .about{
-    padding:140px 0;
-    border-top:1px solid var(--hairline);
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:60px;
+  /* ---------- Photo Split Segment (10 Slots with Explanations) ---------- */
+  .photo-split-container {
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+    padding-bottom: 140px;
   }
-  .about p{
-    font-family:'Fraunces', serif;
-    font-size:clamp(24px,3vw,36px);
-    line-height:1.4;
-    font-weight:500;
+  .photo-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: clamp(40px, 8vw, 120px);
+    align-items: center;
   }
-  .about p em{color:var(--sienna); font-style:italic;}
-  .about-list{
-    font-family:'JetBrains Mono', monospace;
-    font-size:13px;
-    color:var(--stone);
-    align-self:center;
+  /* Alternating layout structures for visual rhythm */
+  .photo-row:nth-child(even) {
+    grid-template-columns: 1fr 1.2fr;
   }
-  .about-list div{
-    display:flex;
-    justify-content:space-between;
-    padding:14px 0;
-    border-bottom:1px solid var(--hairline);
+  .photo-row:nth-child(even) .photo-side {
+    grid-column: 2;
   }
-  .about-list div span:last-child{color:var(--bone);}
-  @media (max-width:780px){
-    .about{grid-template-columns:1fr;}
+  .photo-row:nth-child(even) .text-side {
+    grid-column: 1;
+    grid-row: 1;
   }
 
-  /* ---------- Footer ---------- */
+  .photo-side {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--surface);
+    cursor: pointer;
+  }
+  .photo-side img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/10;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.92) contrast(1.04);
+    transition: transform 0.7s cubic-bezier(.16,1,.3,1), filter 0.5s ease;
+  }
+  /* Give some slots variation in aspect ratios */
+  .photo-row.tall-aspect .photo-side img {
+    aspect-ratio: 4/5;
+  }
+  .photo-side:hover img {
+    transform: scale(1.03);
+    filter: saturate(1.02) contrast(1.04);
+  }
+
+  .text-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .photo-meta-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--sienna);
+    margin-bottom: 16px;
+  }
+  .photo-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(24px, 3.5vw, 42px);
+    font-weight: 500;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  .photo-desc {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--stone);
+    max-width: 480px;
+  }
+
+  @media (max-width: 880px) {
+    .photo-row, .photo-row:nth-child(even) {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+    .photo-row:nth-child(even) .photo-side {
+      grid-column: 1;
+    }
+    .photo-row:nth-child(even) .text-side {
+      grid-column: 1;
+    }
+  }
+
+  /* ---------- Footer Section ---------- */
   footer{
     padding:80px 0 160px;
     border-top:1px solid var(--hairline);
@@ -422,7 +403,7 @@
   }
   footer .links a:hover{color:var(--sienna);}
 
-  /* ---------- Lightbox ---------- */
+  /* ---------- Lightbox Overlay ---------- */
   .lightbox{
     position:fixed;
     inset:0;
@@ -471,71 +452,56 @@
 
   <div class="fc-track" id="fcTrack"></div>
   <div class="frame-counter">
-    <span><span class="fc-label">FRAME&nbsp;</span><span id="fcNow">001</span><span class="fc-label">/</span><span id="fcTotal">112</span></span>
-    <span class="fc-label">NOVA REYES — VISUAL ARCHIVE</span>
+    <span><span class="fc-label">FRAME&nbsp;</span><span id="fcNow">001</span><span class="fc-label">/</span><span id="fcTotal">019</span></span>
+    <span class="fc-label">MISHAL HAMZAH — ARCHIVE</span>
   </div>
 
   <nav aria-label="Section navigation">
-    <a href="#top" class="active">Top</a>
-    <a href="#photos">Photos</a>
+    <a href="#top" class="active">Overview</a>
     <a href="#films">Films</a>
-    <a href="#about">About</a>
+    <a href="#photos">Photographs</a>
     <a href="#contact">Contact</a>
   </nav>
 
   <main id="top">
     <section class="hero">
-      <div class="hero-eyebrow">Available for commission · Based in Lisbon</div>
-      <h1 class="hero-title">Stills &amp;<br><em>moving</em> things.</h1>
-      <p class="hero-sub">A working archive of photography and short-form film — portraits, places, and the in-between frames that don't usually make the cut. Shot on grain, cut on instinct.</p>
-      <div class="hero-meta">
-        <div><strong id="statPhotos">18</strong>Frames archived</div>
-        <div><strong id="statFilms">7</strong>Films released</div>
-        <div><strong>2017–2026</strong>Active years</div>
-      </div>
+      <div class="hero-eyebrow">Portfolio / Interactive Media</div>
+      <h1 class="hero-title">
+        MUHAMMAD MISHAL ADAM IMAN BIN HAMZAH
+      </h1>
+      <p class="hero-sub">
+        <strong>Diploma in Computer Science &bull; Bachelor of Computer Science (Hons.) Multimedia Computing</strong><br><br>
+        Exploring intersections of dynamic visual frameworks, interface architecture, and time-based creative media. A structured archive showcasing spatial narrative design across digital layers.
+      </p>
       <div class="scroll-cue"><div class="line"></div>SCROLL</div>
-    </section>
-
-    <section id="photos">
-      <div class="section-head">
-        <h2>Photographs</h2>
-        <div class="tag">SELECTED FRAMES, UNSEQUENCED — CLICK ANY TILE TO VIEW FULL SIZE</div>
-      </div>
-      <div class="masonry" id="masonryGrid">
-        <!-- Cards are generated by JS using placeholder imagery -->
-      </div>
     </section>
 
     <section id="films">
       <div class="section-head">
-        <h2>Films</h2>
-        <div class="tag">SHORT-FORM &amp; DOCUMENTARY WORK — HOVER A TITLE, CLICK TO PLAY</div>
+        <h2>Moving Frames</h2>
+        <div class="tag">09 SELECTED REELS &mdash; HOVER TO PREVIEW, SELECT TO RESOLVE</div>
       </div>
       <div class="reel-wrap">
-        <div class="reel" id="reelList"></div>
+        <div class="reel" id="reelList">
+          </div>
       </div>
     </section>
 
-    <section id="about">
-      <div class="about">
-        <p>I make pictures that <em>sit still</em> and pictures that <em>don't</em> — same eye, two speeds. Twelve years of commercial and personal work across both.</p>
-        <div class="about-list">
-          <div><span>Discipline</span><span>Photography / Direction</span></div>
-          <div><span>Studio</span><span>Lisbon, PT</span></div>
-          <div><span>Clients</span><span>Editorial, Independent Film, Brand</span></div>
-          <div><span>Equipment</span><span>35mm Film · ARRI Alexa Mini</span></div>
-          <div><span>Status</span><span>Booking Q4 2026</span></div>
-        </div>
+    <section id="photos">
+      <div class="section-head">
+        <h2>Visual Works</h2>
+        <div class="tag">10 ARCHIVAL LAYERS &mdash; SELECT A TILE FOR FULL DIMENSION MATRIX</div>
       </div>
+      <div class="photo-split-container" id="photoSplitGrid">
+         </div>
     </section>
 
     <footer id="contact">
-      <div class="big">Let's make<br>something.</div>
+      <div class="big">Let's build<br>something.</div>
       <div class="links">
-        <a href="mailto:hello@novareyes.work">hello@novareyes.work</a>
-        <a href="#">Instagram</a>
-        <a href="#">Vimeo</a>
-        <a href="#">CV / PDF</a>
+        <a href="mailto:hello@domain.com">Email / Communication</a>
+        <a href="#">Network</a>
+        <a href="#">Terminal</a>
       </div>
     </footer>
   </main>
@@ -549,89 +515,36 @@
   </div>
 
 <script>
-  /* ---------------- Data ----------------
-     HOW TO ADD YOUR OWN PHOTOS:
-     1. Create a folder called "images" in your GitHub repo (next to index.html).
-     2. Upload your photo files into it (e.g. images/photo01.jpg).
-     3. Below, change the "src" of each photo to match your filename: "images/photo01.jpg"
-     4. Change "title" and "cap" (caption) to whatever you want shown on hover.
-     5. "size" controls the shape of the tile in the grid. Options: "" (normal),
-        "wide" (landscape, spans more width), "narrow" (portrait, spans less width),
-        "tall" (portrait, spans extra height). Mix them for visual variety.
-     6. If you have fewer or more than 18 photos, just delete or copy a whole
-        { ... } line — nothing else needs to change, the grid adjusts automatically.
-  ------------------------------------------------------------------------- */
-  const photos = [
-    {src:"images/photo01.jpg", size:"narrow", title:"Untitled 01", cap:"2025"},
-    {src:"images/photo02.jpg", size:"wide",   title:"Untitled 02", cap:"2025"},
-    {src:"images/photo03.jpg", size:"",       title:"Untitled 03", cap:"2025"},
-    {src:"images/photo04.jpg", size:"tall",   title:"Untitled 04", cap:"2024"},
-    {src:"images/photo05.jpg", size:"",       title:"Untitled 05", cap:"2024"},
-    {src:"images/photo06.jpg", size:"wide",   title:"Untitled 06", cap:"2024"},
-    {src:"images/photo07.jpg", size:"narrow", title:"Untitled 07", cap:"2024"},
-    {src:"images/photo08.jpg", size:"tall",   title:"Untitled 08", cap:"2023"},
-    {src:"images/photo09.jpg", size:"",       title:"Untitled 09", cap:"2023"},
-    {src:"images/photo10.jpg", size:"wide",   title:"Untitled 10", cap:"2023"},
-    {src:"images/photo11.jpg", size:"narrow", title:"Untitled 11", cap:"2023"},
-    {src:"images/photo12.jpg", size:"",       title:"Untitled 12", cap:"2022"},
-    {src:"images/photo13.jpg", size:"tall",   title:"Untitled 13", cap:"2022"},
-    {src:"images/photo14.jpg", size:"",       title:"Untitled 14", cap:"2022"},
-    {src:"images/photo15.jpg", size:"wide",   title:"Untitled 15", cap:"2022"},
-    {src:"images/photo16.jpg", size:"narrow", title:"Untitled 16", cap:"2021"},
-    {src:"images/photo17.jpg", size:"",       title:"Untitled 17", cap:"2021"},
-    {src:"images/photo18.jpg", size:"tall",   title:"Untitled 18", cap:"2021"},
-  ];
-
-  /* HOW TO ADD YOUR OWN VIDEOS:
-     1. Create a folder called "videos" in your GitHub repo (next to index.html).
-        NOTE: GitHub blocks files over 100MB and recommends staying well under 50MB
-        per file. Compress/export your videos at a reasonable resolution (1080p is
-        usually plenty) before uploading, or they may fail to upload or load slowly.
-     2. Upload your video files into it (e.g. videos/film01.mp4).
-     3. Below, change "src" to match your filename: "videos/film01.mp4"
-     4. "poster" is the thumbnail image shown before playing — point it at a still
-        frame from the video, which can live in your images folder too.
-     5. Update title / year / runtime / role to match each film.
-  ------------------------------------------------------------------------- */
+  /* ---------------- Data Configurations ---------------- */
+  
+  // 9 Video slots dataset
   const films = [
-    {title:"Film Title 01", year:"2026", runtime:"00:00", role:"Director / DP", src:"videos/film01.mp4", poster:"images/film01-poster.jpg"},
-    {title:"Film Title 02", year:"2025", runtime:"00:00", role:"Director", src:"videos/film02.mp4", poster:"images/film02-poster.jpg"},
-    {title:"Film Title 03", year:"2025", runtime:"00:00", role:"DP", src:"videos/film03.mp4", poster:"images/film03-poster.jpg"},
-    {title:"Film Title 04", year:"2024", runtime:"00:00", role:"Director / Editor", src:"videos/film04.mp4", poster:"images/film04-poster.jpg"},
-    {title:"Film Title 05", year:"2024", runtime:"00:00", role:"Director", src:"videos/film05.mp4", poster:"images/film05-poster.jpg"},
-    {title:"Film Title 06", year:"2023", runtime:"00:00", role:"DP", src:"videos/film06.mp4", poster:"images/film06-poster.jpg"},
-    {title:"Film Title 07", year:"2023", runtime:"00:00", role:"Director", src:"videos/film07.mp4", poster:"images/film07-poster.jpg"},
+    {title:"Project Sequence Alpha", year:"2026", runtime:"01:42", role:"Creative Director", src:"videos/film01.mp4", poster:"images/film01-poster.jpg"},
+    {title:"Dynamic Spatial Environments", year:"2026", runtime:"02:15", role:"Media Engineer", src:"videos/film02.mp4", poster:"images/film02-poster.jpg"},
+    {title:"Interface Kinetic Studies", year:"2025", runtime:"00:58", role:"Technical Developer", src:"videos/film03.mp4", poster:"images/film03-poster.jpg"},
+    {title:"Atmospheric Geometry", year:"2025", runtime:"03:10", role:"VFX Specialist", src:"videos/film04.mp4", poster:"images/film04-poster.jpg"},
+    {title:"Narrative Framework Beta", year:"2025", runtime:"01:24", role:"Director", src:"videos/film05.mp4", poster:"images/film05-poster.jpg"},
+    {title:"Interactive Render Pipelines", year:"2024", runtime:"02:40", role:"Graphics Engineer", src:"videos/film06.mp4", poster:"images/film06-poster.jpg"},
+    {title:"Generative Motion Systems", year:"2024", runtime:"01:12", role:"Developer", src:"videos/film07.mp4", poster:"images/film07-poster.jpg"},
+    {title:"Archival Vector Geometry", year:"2024", runtime:"04:02", role:"Technical Director", src:"videos/film08.mp4", poster:"images/film08-poster.jpg"},
+    {title:"Synthesis & Sequence Final", year:"2023", runtime:"02:22", role:"Lead Editor", src:"videos/film09.mp4", poster:"images/film09-poster.jpg"},
   ];
 
-  /* ---------------- Build photo grid ---------------- */
-  const grid = document.getElementById('masonryGrid');
-  photos.forEach((p, i) => {
-    const card = document.createElement('div');
-    card.className = 'photo-card' + (p.size ? ' ' + p.size : '');
-    card.tabIndex = 0;
-    card.setAttribute('role','button');
-    card.setAttribute('aria-label', `Open photo: ${p.title}, ${p.cap}`);
-    const img = document.createElement('img');
-    img.loading = 'lazy';
-    img.alt = p.title + ' — ' + p.cap;
-    img.src = p.src;
-    img.onerror = function(){
-      this.onerror = null;
-      this.src = `https://picsum.photos/seed/${encodeURIComponent(p.src)}/1200/1500`;
-      this.style.outline = '1px dashed var(--sienna)';
-      this.title = 'Missing file: ' + p.src + ' — upload it to your images folder';
-    };
-    const overlay = document.createElement('div');
-    overlay.className = 'photo-overlay';
-    overlay.innerHTML = `<div class="pn">${String(i+1).padStart(3,'0')}</div><div class="pt">${p.title} — <span style="color:var(--stone)">${p.cap}</span></div>`;
-    card.appendChild(img);
-    card.appendChild(overlay);
-    card.addEventListener('click', () => openLightbox('image', img.src, `${p.title} — ${p.cap}`));
-    card.addEventListener('keypress', e => { if(e.key === 'Enter') openLightbox('image', img.src, `${p.title} — ${p.cap}`); });
-    grid.appendChild(card);
-  });
+  // 10 Photo slots dataset with structural layout rules and explanations
+  const photos = [
+    {src:"images/photo01.jpg", isTall: false, title:"Composition Matrix I", desc:"An exploration of geometric balance and stark contrast within urban environments. Capturing structural depth and shadow-play mechanics."},
+    {src:"images/photo02.jpg", isTall: true,  title:"Surface Textures & Grain", desc:"Focusing on micro-level material interfaces. Highlighting rough industrial degradation elements against clinical layouts."},
+    {src:"images/photo03.jpg", isTall: false, title:"The In-Between Frames", desc:"Candid structural observations tracking architectural layout adjustments across transitory public terminals."},
+    {src:"images/photo04.jpg", isTall: false, title:"Chroma Isolation Study", desc:"Isolating primary chromatic signals against uniform dark fields to research localized depth emphasis."},
+    {src:"images/photo05.jpg", isTall: true,  title:"Light Mechanics II", desc:"Capturing linear light dispersion through high-density atmospheres during the late evening Golden Hour intervals."},
+    {src:"images/photo06.jpg", isTall: false, title:"Asymmetric Balance Node", desc:"Framing landscape elements with architectural frameworks to isolate modern geometry rules."},
+    {src:"images/photo07.jpg", isTall: false, title:"Monochrome Layout Study", desc:"Stripping tone down entirely to focus explicitly on shape weight, spatial value allocation, and contrast depth."},
+    {src:"images/photo08.jpg", isTall: true,  title:"Kinetic Blur & Stillness", desc:"Contrasting high-speed environmental movement paths against hyper-stabilized anchor targets in center-frame."},
+    {src:"images/photo09.jpg", isTall: false, title:"Refractive Surface Layers", desc:"Documenting multiple visual dimensions captured simultaneously via intersecting mirrors and heavy glass distortions."},
+    {src:"images/photo10.jpg", isTall: false, title:"Terminal Horizon Line", desc:"A clinical minimal framing emphasizing infinite linear convergence points over wide terrain assets."},
+  ];
 
-  /* ---------------- Build film reel ---------------- */
+  /* ---------------- Build Film Reel (9 Slots) ---------------- */
   const reelList = document.getElementById('reelList');
   const reelThumb = document.getElementById('reelThumb');
   const reelThumbImg = document.getElementById('reelThumbImg');
@@ -653,10 +566,10 @@
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </div>
       </div>`;
-    const thumbSrc = f.poster;
+      
     row.addEventListener('mouseenter', e => {
-      reelThumbImg.src = thumbSrc;
-      reelThumbImg.onerror = function(){ this.src = `https://picsum.photos/seed/${encodeURIComponent(f.src)}/560/340`; };
+      reelThumbImg.src = f.poster;
+      reelThumbImg.onerror = function(){ this.src = `https://picsum.photos/seed/${encodeURIComponent(f.title)}/560/340`; };
       reelThumb.classList.add('show');
     });
     row.addEventListener('mousemove', e => {
@@ -669,7 +582,49 @@
     reelList.appendChild(row);
   });
 
-  /* ---------------- Lightbox ---------------- */
+  /* ---------------- Build Photo Split Layout (10 Slots) ---------------- */
+  const photoContainer = document.getElementById('photoSplitGrid');
+  
+  photos.forEach((p, i) => {
+    const row = document.createElement('div');
+    row.className = 'photo-row' + (p.isTall ? ' tall-aspect' : '');
+    
+    // Photo Side
+    const photoSide = document.createElement('div');
+    photoSide.className = 'photo-side';
+    photoSide.tabIndex = 0;
+    photoSide.setAttribute('role', 'button');
+    photoSide.setAttribute('aria-label', `Open photo asset: ${p.title}`);
+    
+    const img = document.createElement('img');
+    img.loading = 'lazy';
+    img.src = p.src;
+    img.alt = p.title;
+    img.onerror = function(){
+      this.onerror = null;
+      this.src = p.isTall ? `https://picsum.photos/seed/${encodeURIComponent(p.title)}/1000/1250` : `https://picsum.photos/seed/${encodeURIComponent(p.title)}/1200/750`;
+    };
+    photoSide.appendChild(img);
+    
+    // Text Side
+    const textSide = document.createElement('div');
+    textSide.className = 'text-side';
+    textSide.innerHTML = `
+      <div class="photo-meta-num">// LAYER_${String(i+1).padStart(2,'0')}</div>
+      <div class="photo-title">${p.title}</div>
+      <div class="photo-desc">${p.desc}</div>
+    `;
+    
+    // Wire up events
+    photoSide.addEventListener('click', () => openLightbox('image', img.src, p.title));
+    photoSide.addEventListener('keypress', e => { if(e.key === 'Enter') openLightbox('image', img.src, p.title); });
+    
+    row.appendChild(photoSide);
+    row.appendChild(textSide);
+    photoContainer.appendChild(row);
+  });
+
+  /* ---------------- Lightbox Engine ---------------- */
   const lightbox = document.getElementById('lightbox');
   const lightboxContent = document.getElementById('lightboxContent');
   const lightboxCap = document.getElementById('lightboxCap');
@@ -680,7 +635,6 @@
       const img = document.createElement('img');
       img.src = src;
       img.alt = caption;
-      img.onerror = function(){ this.src = `https://picsum.photos/seed/${encodeURIComponent(src)}/1200/1500`; };
       lightboxContent.appendChild(img);
     } else {
       const video = document.createElement('video');
@@ -689,12 +643,9 @@
       video.controls = true;
       video.autoplay = true;
       video.playsInline = true;
-      video.style.maxWidth = '88vw';
-      video.style.maxHeight = '82vh';
-      video.style.borderRadius = '4px';
       video.onerror = function(){
-        lightboxContent.innerHTML = `<div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--stone);text-align:center;max-width:60vw;">
-          Couldn't load "${src}". Make sure the file is uploaded to your <strong style="color:var(--bone)">videos</strong> folder on GitHub with this exact filename.
+        lightboxContent.innerHTML = `<div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--stone);text-align:center;">
+          Asset path could not resolve: "${src}"
         </div>`;
       };
       lightboxContent.appendChild(video);
@@ -702,31 +653,21 @@
     lightboxCap.textContent = caption;
     lightbox.classList.add('open');
   }
-  document.getElementById('lightboxClose').addEventListener('click', () => {
+  
+  const closeBtn = document.getElementById('lightboxClose');
+  const closeLightboxAction = () => {
     lightbox.classList.remove('open');
     const v = lightboxContent.querySelector('video');
     if(v) v.pause();
-  });
-  lightbox.addEventListener('click', e => {
-    if(e.target === lightbox){
-      lightbox.classList.remove('open');
-      const v = lightboxContent.querySelector('video');
-      if(v) v.pause();
-    }
-  });
-  document.addEventListener('keydown', e => {
-    if(e.key === 'Escape'){
-      lightbox.classList.remove('open');
-      const v = lightboxContent.querySelector('video');
-      if(v) v.pause();
-    }
-  });
+  };
+  
+  closeBtn.addEventListener('click', closeLightboxAction);
+  lightbox.addEventListener('click', e => { if(e.target === lightbox) closeLightboxAction(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightboxAction(); });
 
-  /* ---------------- Frame counter + scroll progress ---------------- */
-  const totalFrames = photos.length + films.length + 96; // archival-feeling total
+  /* ---------------- Frame counter + scroll metrics ---------------- */
+  const totalFrames = films.length + photos.length; 
   document.getElementById('fcTotal').textContent = String(totalFrames).padStart(3,'0');
-  document.getElementById('statPhotos').textContent = photos.length;
-  document.getElementById('statFilms').textContent = films.length;
   const fcNow = document.getElementById('fcNow');
   const fcTrack = document.getElementById('fcTrack');
 
@@ -738,8 +679,8 @@
     const frame = Math.min(totalFrames, Math.max(1, Math.round(pct * totalFrames)));
     fcNow.textContent = String(frame).padStart(3,'0');
 
-    // active nav state
-    const sections = ['top','photos','films','about','contact'];
+    // Section highlighting logic
+    const sections = ['top','films','photos','contact'];
     let current = sections[0];
     for(const id of sections){
       const el = document.getElementById(id);
