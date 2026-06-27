@@ -317,14 +317,18 @@
     aspect-ratio: 9/16;
     cursor:pointer;
   }
-  .reel-video-panel img{
-    width:100%; height:100%; object-fit:cover; display:block;
+  .reel-video-panel video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
   .reel-video-panel .reel-play-overlay{
     position:absolute; inset:0;
     display:flex; align-items:center; justify-content:center;
     background: rgba(0,0,0,0.18);
     transition: background 0.25s ease;
+    z-index: 2;
   }
   .reel-video-panel:hover .reel-play-overlay{ background: rgba(0,0,0,0.32); }
   .reel-play-badge{
@@ -502,7 +506,7 @@
       
       <div class="hero-upper-row">
         <div class="hero-tiktok-video-slot">
-          <video autoplay loop muted playsinline poster="images/hero-video-poster.jpg">
+          <video autoplay loop muted playsinline>
             <source src="videos/intromishal2.mp4" type="video/mp4">
           </video>
         </div>
@@ -573,31 +577,31 @@
   /* ---------------- Animation Reels Data (Strict Lowercase Paths For GitHub Alignment) ---------------- */
   const films = [
     { title:"Cepat Sikit boleh tak?", 
-      videoSrc:"videos/cepatsikit.mp4", poster:"images/4million.png",
+      videoSrc:"videos/cepatsikit.mp4",
       description:"A 3D animated short following an everyday market scene. Launched an original short-form 3D animation that achieved massive viral reach and exceptional audience retention across multiple platforms within a two-week period. On TikTok, the video generated 1.2 million views and captured a 52.42% full-watch completion rate, drawing an audience composed entirely (100%) of non-followers and proving the content's strong algorithmic appeal. Concurrently, the video outperformed expectations on Instagram Reels, capturing over 3.09 million views and reaching 1.64 million unique accounts. Across both platforms, the animation maintained a near-perfect retention rate, averaging an impressive 16 to 17 seconds of watch time on an 18-second video, and successfully converted viewer engagement into a combined growth of over 5,500 new followers",
       stats:["images/cepatsikittiktok01.png","images/cepatsikittiktok02.png","images/cepatsikitinsta01.png"] },
     { title:"Opah Breakdance",
-      videoSrc:"videos/opah.mp4", poster:"images/5million.png",
+      videoSrc:"videos/opah.mp4",
       description:"Developed and published a viral short-form 3D animation that generated massive, sustained engagement across digital platforms, accumulating nearly 5 million combined views. On TikTok, the 11.6-second video amassed 3.1 million views, 414K likes, and an extraordinary 411K shares, demonstrating immense shareability. It achieved a 100% organic reach among non-followers, with a viewer demographic that skewed 65% female. On Instagram Reels, the project maintained this strong momentum, securing 1.81 million views, reaching 1.26 million unique accounts, and maintaining a solid 7-second average watch time. Across both platforms, the video successfully converted viewer traction into a combined growth of over 2,200 new followers.",
       stats:["images/opahtiktok01.png","images/opahtiktok02.png","images/opahinsta01.png"] },
     { title:"LuqmanPodolski", 
-      videoSrc:"videos/luqman.mp4", poster:"images/coverluq.png",
+      videoSrc:"videos/luqman.mp4",
       description:"Produced a longer-form 3D character animation (47.97 seconds) that successfully captured broad audience traction, generating over 1.1 million combined views across platforms. On TikTok, the video achieved 704.6K views, maintaining an average watch time of 17.6 seconds and achieving a notable 23.01% full-watch completion rate for a video of its length. The content secured a 100% organic reach among non-followers, with a viewer base that skewed 69% male. On Instagram Reels, the animation expanded its reach by securing 429.9K views, reaching 274.4K unique accounts, and maintaining a strong 23-second average watch time. Across both platforms, the high viewer retention successfully translated into a combined growth of over 2,100 new followers.",
       stats:["images/luq1.png","images/luq2.png","images/luq3.png"] },
     { title:"Hantu Kak Limah", 
-      videoSrc:"videos/kaklimah.mp4", poster:"images/coverlimah.png",
+      videoSrc:"videos/kaklimah.mp4",
       description:"Produced a detailed, longer-form 3D character animation (49.73 seconds) that successfully established sustainable cross-platform reach, generating over 255K combined views across platforms. On TikTok, the video garnered 150K views, 21K likes, and an organic audience reach composed 99% of non-followers, capturing a 13.39% full-watch completion rate and an average watch time of 13 seconds. On Instagram Reels, the project extended its audience engagement, securing 105.7K views, reaching 75.1K unique accounts, and maintaining a strong 16-second average watch time. Across both channels, the high-intent viewer interactions successfully grew the digital community by contributing a combined acquisition of over 1,000 new followers.",
       stats:["images/limah01.png","images/limah02.png","images/limah03.png"] },
     { title:"Sirap Backrooms", 
-      videoSrc:"videos2/sirapbackrooms.mp4", poster:"images/coversirap.png",
+      videoSrc:"videos2/sirapbackrooms.mp4",
       description:"Designed and published a mid-length 3D animation project (36.04 seconds) that secured strong engagement and audience interest, accumulating over 269K combined views across channels. On TikTok, the video generated 164.2K views, 24K likes, and an organic reach of 98% among non-followers, capturing a 13% full-watch completion rate and an 11-second average watch time. Notably, the project demonstrated deep audience connection with a high-intent audience makeup consisting of 82% returning viewers. On Instagram Reels, the asset expanded its multi-platform footprint by generating 105.2K views, reaching 69.5K unique accounts, and maintaining a strong 16-second average watch time. Across both platforms, the project successfully converted high viewer resonance into a combined growth of nearly 1,000 new followers.",
       stats:["images/sirap1.png","images/sirap2.png","images/sirap3.png"] },
     { title:"Fire Snail", 
-      videoSrc:"videos2/siput.mp4", poster:"images/coversiput3.png",
+      videoSrc:"videos2/siput.mp4",
       description:"Produced a mid-length 3D animation project (45.83 seconds) that successfully engaged a niche audience segment and demonstrated targeted platform impact, securing over 60K combined views. On Instagram Reels, the asset generated strong performance with 54.4K views, reaching 39K unique accounts, and maintaining a high 18-second average watch time along with over 850 saves and shares. On TikTok, the project accumulated 5.7K views with an organic reach of 86% among non-followers and a notable community response consisting of 62% returning viewers. Across both channels, the highly focused audience engagement translated into stable viewer retention and a combined growth of nearly 280 new followers",
       stats:["images/siput1.png","images/siput2.png","images/siput3.png"] },
     { title:"Tarung", 
-      videoSrc:"videos2/tarung.mp4", poster:"images/covertarung.png",
+      videoSrc:"videos2/tarung.mp4",
       description:"On June 2, 2026, I published a 24.2-second short-form video and tracked its performance across platforms to analyze audience behavior and platform-specific algorithmic reach. On TikTok, the video generated 21.5K views and reached 17.5K unique viewers, effectively tapping into a cold audience with 93% non-followers and a strong 61% returning viewer rate, which converted into 35 new followers with an average watch time of 8.8 seconds (8.32% full completion rate). The performance on Instagram Reels (crossposted to Facebook) proved even stronger for viewer retention and growth, pulling in 24,495 views and reaching 18,042 accounts. Notably, the Reel maintained a much higher average watch time of 12 seconds, keeping viewers for roughly half the video's duration, which directly translated into a significantly higher conversion rate of 106 new follows.",
       stats:["images/tarung1.png","images/tarung2.png","images/tarung3.png"] },
   ];
@@ -620,17 +624,15 @@
     const inner = document.createElement('div');
     inner.className = 'reel-frame-inner';
 
-    // 1. Video panel
+    // 1. Video panel (Updated to loop a muted layout preview natively)
     const videoPanel = document.createElement('div');
     videoPanel.className = 'reel-video-panel';
     videoPanel.innerHTML = `
-      <img src="${f.poster}" alt="${f.title}" loading="lazy">
+      <video autoplay loop muted playsinline>
+        <source src="${f.videoSrc}" type="video/mp4">
+      </video>
       <div class="reel-play-overlay"><div class="reel-play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>`;
     
-    // Smooth fallback handling if a specific poster path breaks on GitHub Pages
-    videoPanel.querySelector('img').onerror = function(){ 
-      this.style.display = 'none'; 
-    };
     videoPanel.addEventListener('click', () => openLightbox('video', f.videoSrc, f.title));
     inner.appendChild(videoPanel);
 
