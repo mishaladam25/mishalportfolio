@@ -274,110 +274,197 @@
     font-weight: 500;
   }
 
-  /* ---------- Vertical Video Grid (9 Slots) ---------- */
-  .reel-wrap { padding-bottom: 100px; }
-  .video-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px 24px;
+  /* ---------- Animation Reel Rows (device-frame strips) ---------- */
+  .reel-wrap{ padding-bottom: 100px; display:flex; flex-direction:column; gap: 56px; }
+
+  .reel-row-label{
+    display:flex; align-items:baseline; gap:14px; margin-bottom:18px;
   }
-  .video-card {
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    background: none;
-    border: none;
-    text-align: left;
-    color: inherit;
-    width: 100%;
+  .reel-row-index{
+    font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--text-muted); font-weight:500;
   }
-  .video-card-visual {
+  .reel-row-title{
+    font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:17px;
+  }
+  .reel-row-meta{
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--text-muted);
+    margin-left:auto;
+    white-space:nowrap;
+  }
+
+  .reel-frame{
     position: relative;
+    background: #0E1216;
+    border-radius: 28px;
+    padding: 18px;
+    box-shadow: 0 24px 60px rgba(28,37,44,0.10);
+  }
+  .reel-frame-inner{
+    display:grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr) minmax(0, 1fr);
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  /* Video panel: bigger, dark, plays inline */
+  .reel-video-panel{
+    position:relative;
     width: 100%;
-    aspect-ratio: 9 / 16;
-    background: var(--soft-blue-dim);
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 18px;
-    border: 1px solid var(--hairline);
+    min-width: 0;
+    border-radius:18px;
+    overflow:hidden;
+    background:#000;
+    aspect-ratio: 9/16;
+    cursor:pointer;
   }
-  .video-card-visual img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.6s cubic-bezier(.16,1,.3,1);
+  .reel-video-panel img{
+    width:100%; height:100%; object-fit:cover; display:block;
   }
-  .video-card:hover .video-card-visual img { transform: scale(1.04); }
-  
-  .video-card-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(179, 224, 255, 0.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  .reel-video-panel .reel-play-overlay{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    background: rgba(0,0,0,0.18);
+    transition: background 0.25s ease;
   }
-  .video-card:hover .video-card-overlay { opacity: 1; }
-  
-  .play-badge {
-    width: 52px; height: 52px;
-    border-radius: 50%;
+  .reel-video-panel:hover .reel-play-overlay{ background: rgba(0,0,0,0.32); }
+  .reel-play-badge{
+    width:56px; height:56px; border-radius:50%;
+    background: rgba(255,255,255,0.92);
+    display:flex; align-items:center; justify-content:center;
+    transform: scale(0.92); transition: transform 0.25s cubic-bezier(.16,1,.3,1);
+  }
+  .reel-video-panel:hover .reel-play-badge{ transform: scale(1); }
+  .reel-play-badge svg{ width:18px; height:18px; fill:#0E1216; margin-left:2px; }
+
+  /* Swappable analytics carousel */
+  .reel-carousel{
+    position:relative;
+    width: 100%;
+    min-width: 0;
+    border-radius:18px;
+    overflow:hidden;
     background: var(--bg-white);
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 8px 20px rgba(28, 37, 44, 0.1);
-    transform: scale(0.9);
-    transition: transform 0.3s cubic-bezier(.16,1,.3,1);
+    aspect-ratio: 9/16;
   }
-  .video-card:hover .play-badge { transform: scale(1); }
-  .play-badge svg { width: 16px; height: 16px; fill: var(--text-dark); margin-left: 2px; }
-
-  .video-card-info { display: flex; flex-direction: column; gap: 6px; }
-  .video-card-header { display: flex; align-items: flex-start; gap: 10px; }
-  .video-card-index { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); margin-top: 3px; }
-  .video-card-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(17px, 1.6vw, 22px); font-weight: 700; line-height: 1.3; }
-  .video-card-meta {
-    display: flex; justify-content: space-between;
-    font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted);
-    border-top: 1px solid var(--hairline); padding-top: 8px; margin-top: 2px;
+  .reel-carousel-track{
+    position:relative;
+    width:100%; height:100%;
+  }
+  .reel-carousel-slide{
+    position:absolute; inset:0;
+    opacity:0;
+    pointer-events:none;
+    transition: opacity 0.35s ease;
+    cursor: pointer;
+  }
+  .reel-carousel-slide.active{
+    opacity:1;
+    pointer-events:all;
+  }
+  .reel-carousel-slide img{
+    width:100%; height:100%; object-fit:cover; object-position: top;
+    display:block;
+  }
+  .reel-carousel-tag{
+    position:absolute; top:10px; left:10px;
+    font-family:'JetBrains Mono', monospace; font-size:9px; letter-spacing:0.03em;
+    color: var(--text-muted);
+    background: rgba(255,255,255,0.88);
+    padding:4px 8px; border-radius:999px;
+    pointer-events:none;
+    z-index: 2;
+  }
+  .reel-carousel-arrow{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:32px; height:32px; border-radius:50%;
+    background: rgba(28,37,44,0.55);
+    border:none;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    z-index: 3;
+    transition: background 0.2s ease;
+  }
+  .reel-carousel-arrow:hover{ background: rgba(28,37,44,0.78); }
+  .reel-carousel-arrow.prev{ left:8px; }
+  .reel-carousel-arrow.next{ right:8px; }
+  .reel-carousel-arrow svg{ width:13px; height:13px; fill:#fff; }
+  .reel-carousel-dots{
+    position:absolute; bottom:10px; left:0; right:0;
+    display:flex; justify-content:center; gap:6px;
+    z-index: 3;
+  }
+  .reel-carousel-dot{
+    width:6px; height:6px; border-radius:50%;
+    background: rgba(28,37,44,0.25);
+    border:none; padding:0; cursor:pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .reel-carousel-dot.active{
+    background: var(--text-dark);
+    transform: scale(1.25);
   }
 
-  @media (max-width: 900px) { .video-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 550px) { .video-grid { grid-template-columns: 1fr; } }
-
-  /* ---------- Photo Split Segment (10 Slots) ---------- */
-  .photo-split-container { display: flex; flex-direction: column; gap: 100px; padding-bottom: 140px; }
-  .photo-row { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(40px, 6vw, 100px); align-items: center; }
-  .photo-row:nth-child(even) { grid-template-columns: 1fr 1.2fr; }
-  .photo-row:nth-child(even) .photo-side { grid-column: 2; }
-  .photo-row:nth-child(even) .text-side { grid-column: 1; grid-row: 1; }
-
-  .photo-side { position: relative; border-radius: 14px; overflow: hidden; background: var(--soft-blue-dim); cursor: pointer; border: 1px solid var(--hairline); }
-  .photo-side img {
-    width: 100%; height: auto; aspect-ratio: 16/10; object-fit: cover; display: block;
-    transition: transform 0.7s cubic-bezier(.16,1,.3,1);
+  /* Text panel: explains the content/stats */
+  .reel-text-panel{
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    border-radius:18px;
+    background: #161B21;
+    padding: 26px 24px;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    gap: 16px;
+    overflow: hidden;
   }
-  .photo-row.tall-aspect .photo-side img { aspect-ratio: 4/5; }
-  .photo-side:hover img { transform: scale(1.03); }
-
-  .text-side { display: flex; flex-direction: column; justify-content: center; }
-  .photo-meta-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-muted); margin-bottom: 12px; font-weight: 500; }
-  .photo-title { font-family: 'Fredoka', sans-serif; font-size: clamp(22px, 3vw, 36px); font-weight: 700; margin-bottom: 16px; line-height: 1.2; text-transform: uppercase; }
-  .photo-desc { font-size: 15px; line-height: 1.6; color: var(--text-muted); max-width: 480px; }
-
-  @media (max-width: 880px) {
-    .photo-row, .photo-row:nth-child(even) { grid-template-columns: 1fr; gap: 24px; }
-    .photo-row:nth-child(even) .photo-side { grid-column: 1; }
-    .photo-row:nth-child(even) .text-side { grid-column: 1; }
+  .reel-text-title{
+    font-family:'Plus Jakarta Sans', sans-serif;
+    font-weight:700;
+    font-size: clamp(16px, 1.6vw, 19px);
+    color: #fff;
+    line-height: 1.3;
+  }
+  .reel-text-body{
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.62);
   }
 
-  /* ---------- Footer ---------- */
+  @media (max-width: 1180px){
+    .reel-frame-inner{
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-rows: auto auto;
+    }
+    .reel-video-panel{ grid-column: 1; grid-row: 1; }
+    .reel-carousel{ grid-column: 2; grid-row: 1; }
+    .reel-text-panel{ grid-column: 1 / -1; grid-row: 2; aspect-ratio: unset; }
+  }
+  @media (max-width: 700px){
+    .reel-frame-inner{ grid-template-columns: minmax(0, 1fr); }
+    .reel-video-panel, .reel-carousel{ grid-column: 1; max-width: 320px; margin: 0 auto; aspect-ratio: 9/16; }
+    .reel-video-panel{ grid-row: 1; }
+    .reel-carousel{ grid-row: 2; }
+    .reel-text-panel{ grid-column: 1; grid-row: 3; padding: 22px; }
+    .reel-row-meta{ margin-left:0; width:100%; }
+    .reel-row-label{ flex-wrap:wrap; }
+  }
+  @media (max-width: 560px){
+    .reel-frame{ padding:12px; border-radius:20px; }
+  }
+
+  /* ---------- Footer Contact Layout ---------- */
   footer{
     padding: 80px 0 140px;
     border-top: 1px solid var(--hairline);
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px;
+    display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 40px;
   }
-  footer .big{ font-family: 'Fredoka', sans-serif; font-size: clamp(32px,4.5vw,52px); font-weight: 700; text-transform: uppercase; }
-  footer .links{ display: flex; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  footer .big{ font-family: 'Fredoka', sans-serif; font-size: clamp(32px,4.5vw,52px); font-weight: 700; text-transform: uppercase; line-height: 1.1; }
+  footer .contact-info-block { display: flex; flex-direction: column; gap: 12px; font-size: 15px; font-weight: 500; }
+  footer .contact-name { font-weight: 700; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.02em; }
+  footer .contact-detail a { color: var(--text-muted); font-family: 'JetBrains Mono', monospace; transition: color 0.2s; }
+  footer .contact-detail a:hover { color: var(--text-dark); border-bottom: 2px solid var(--soft-blue); }
+  footer .links{ display: flex; gap: 24px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-muted); font-weight: 500; margin-top: 8px; }
   footer .links a:hover{ color: var(--text-dark); border-bottom: 2px solid var(--soft-blue); }
 
   /* ---------- Lightbox Overlay ---------- */
@@ -401,14 +488,13 @@
 
   <div class="fc-track" id="fcTrack"></div>
   <div class="frame-counter">
-    <span>FRAME&nbsp;<span id="fcNow">001</span>&nbsp;/&nbsp;<span id="fcTotal">019</span></span>
+    <span>CREATIVE PORTFOLIO&nbsp;<span id="fcNow"></span>&nbsp;&nbsp;</span>
     <span>MISHAL HAMZAH</span>
   </div>
 
   <nav aria-label="Section navigation">
     <a href="#top" class="active">Hello</a>
     <a href="#films">Moving Frames</a>
-    <a href="#photos">Visual Works</a>
     <a href="#contact">Contact</a>
   </nav>
 
@@ -445,7 +531,7 @@
           <h2 class="about-title">About<br>Me</h2>
           <p class="about-body-paragraph">
             I hold a <strong>Diploma in Computer Science</strong> and am pursuing a <strong>Bachelor's in Multimedia Computing</strong>, blending structured technical foundations with creative execution paths. <br><br>
-            I specialize in detailed 2D illustration, character layout, and production-ready 3D modeling pipelines, taking conceptual sketches and engineering them into fully realized digital interactive assets.
+            I specialize in 3D animation, 3D modelling, 2D illustration, and I’ve worked on commissioned projects that brought client ideas to life.
           </p>
           <a href="#contact" class="work-with-me-btn">Work With Me</a>
         </div>
@@ -456,26 +542,24 @@
     <section id="films">
       <div class="section-head">
         <h2>ANIMATIONS</h2>
-        <div class="tag">09 VERTICAL ARCHIVES</div>
+        <div class="tag">08 REELS &middot; PERFORMANCE</div>
       </div>
-      <div class="reel-wrap">
-        <div class="video-grid" id="videoGrid"></div>
-      </div>
-    </section>
 
-    <section id="photos">
-      <div class="section-head">
-        <h2>Visual Works</h2>
-        <div class="tag">10 SELECTIONS</div>
-      </div>
-      <div class="photo-split-container" id="photoSplitGrid"></div>
+      <div class="reel-wrap" id="reelWrap"></div>
     </section>
 
     <footer id="contact">
       <div class="big">Let's craft<br>together.</div>
-      <div class="links">
-        <a href="mailto:hello@domain.com">Communication</a>
-        <a href="#">Network</a>
+      
+      <div class="contact-info-block">
+        <div class="contact-name">MUHAMMAD MISHAL ADAM IMAN BIN HAMZAH</div>
+        <div class="contact-detail">Phone: <a href="tel:0197293707">019 729 3707</a></div>
+        <div class="contact-detail">Email: <a href="mailto:mishaladam25@gmail.com">mishaladam25@gmail.com</a></div>
+        
+        <div class="links">
+          <a href="https://instagram.com/mishal.hmzh" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tiktok.com/@mishal.hmzh" target="_blank" rel="noopener">TikTok</a>
+        </div>
       </div>
     </footer>
   </main>
@@ -487,124 +571,189 @@
   </div>
 
 <script>
-  /* ---------------- Data Configurations ---------------- */
+  /* ---------------- Animation Reels Data (8 videos, each w/ swappable analytics shots) ---------------- */
   const films = [
-    {title:"Project Sequence Alpha", year:"2026", runtime:"01:42", role:"Creative Director", src:"videos/cepatsikit.mp4", poster:"images/4milBudak.png"},
-    {title:"Dynamic Spatial Environments", year:"2026", runtime:"02:15", role:"Media Engineer", src:"videos/opah.mp4", poster:"images/4mil2.png"},
-    {title:"Interface Kinetic Studies", year:"2025", runtime:"00:58", role:"Technical Developer", src:"videos/film03.mp4", poster:"images/film03-poster.jpg"},
-    {title:"Atmospheric Geometry", year:"2025", runtime:"03:10", role:"VFX Specialist", src:"videos/film04.mp4", poster:"images/film04-poster.jpg"},
-    {title:"Narrative Framework Beta", year:"2025", runtime:"01:24", role:"Director", src:"videos/film05.mp4", poster:"images/film05-poster.jpg"},
-    {title:"Interactive Render Pipelines", year:"2024", runtime:"02:40", role:"Graphics Engineer", src:"videos/film06.mp4", poster:"images/film06-poster.jpg"},
-    {title:"Generative Motion Systems", year:"2024", runtime:"01:12", role:"Developer", src:"videos/film07.mp4", poster:"images/film07.jpg"},
-    {title:"Archival Vector Geometry", year:"2024", runtime:"04:02", role:"Technical Director", src:"videos/film08.mp4", poster:"images/film08-poster.jpg"},
-    {title:"Synthesis & Sequence Final", year:"2023", runtime:"02:22", role:"Lead Editor", src:"videos/film09.mp4", poster:"images/film09-poster.jpg"},
+    { title:"Cepat Sikit boleh tak?", 
+      videoSrc:"videos/cepatsikit.mp4", poster:"images/4million.png",
+      description:"A 3D animated short following an everyday market scene. Launched an original short-form 3D animation that achieved massive viral reach and exceptional audience retention across multiple platforms within a two-week period. On TikTok, the video generated 1.2 million views and captured a 52.42% full-watch completion rate, drawing an audience composed entirely (100%) of non-followers and proving the content's strong algorithmic appeal. Concurrently, the video outperformed expectations on Instagram Reels, capturing over 3.09 million views and reaching 1.64 million unique accounts. Across both platforms, the animation maintained a near-perfect retention rate, averaging an impressive 16 to 17 seconds of watch time on an 18-second video, and successfully converted viewer engagement into a combined growth of over 5,500 new followers",
+      stats:["images/cepatsikitTiktok01.png","images/cepatsikitTiktok02.png","images/cepatsikitInsta01.png"] },
+    { title:"Opah Breakdance",
+      videoSrc:"videos/opah.mp4", poster:"images/5million.png",
+      description:"Developed and published a viral short-form 3D animation that generated massive, sustained engagement across digital platforms, accumulating nearly 5 million combined views. On TikTok, the 11.6-second video amassed 3.1 million views, 414K likes, and an extraordinary 411K shares, demonstrating immense shareability. It achieved a 100% organic reach among non-followers, with a viewer demographic that skewed 65% female. On Instagram Reels, the project maintained this strong momentum, securing 1.81 million views, reaching 1.26 million unique accounts, and maintaining a solid 7-second average watch time. Across both platforms, the video successfully converted viewer traction into a combined growth of over 2,200 new followers.",
+      stats:["images/opahTiktok01.png","images/opahTiktok02.png","images/opahInsta01.png"] },
+    { title:"LuqmanPodolski", 
+      videoSrc:"videos/luqman.mp4", poster:"images/coverLuq.png",
+      description:"Produced a longer-form 3D character animation (47.97 seconds) that successfully captured broad audience traction, generating over 1.1 million combined views across platforms. On TikTok, the video achieved 704.6K views, maintaining an average watch time of 17.6 seconds and achieving a notable 23.01% full-watch completion rate for a video of its length. The content secured a 100% organic reach among non-followers, with a viewer base that skewed 69% male. On Instagram Reels, the animation expanded its reach by securing 429.9K views, reaching 274.4K unique accounts, and maintaining a strong 23-second average watch time. Across both platforms, the high viewer retention successfully translated into a combined growth of over 2,100 new followers.",
+      stats:["images/luq1.png","images/luq2.png","images/luq3.png"] },
+    { title:"Hantu Kak Limah", 
+      videoSrc:"videos/kaklimah.mp4", poster:"images/coverLimah.png",
+      description:"Produced a detailed, longer-form 3D character animation (49.73 seconds) that successfully established sustainable cross-platform reach, generating over 255K combined views across platforms. On TikTok, the video garnered 150K views, 21K likes, and an organic audience reach composed 99% of non-followers, capturing a 13.39% full-watch completion rate and an average watch time of 13 seconds. On Instagram Reels, the project extended its audience engagement, securing 105.7K views, reaching 75.1K unique accounts, and maintaining a strong 16-second average watch time. Across both channels, the high-intent viewer interactions successfully grew the digital community by contributing a combined acquisition of over 1,000 new followers.",
+      stats:["images/limah01.png","images/limah02.png","images/limah03.png"] },
+    { title:"Sirap Backrooms", 
+      videoSrc:"videos2/sirapbackrooms.mp4", poster:"images/coverSirap.png",
+      description:"Designed and published a mid-length 3D animation project (36.04 seconds) that secured strong engagement and audience interest, accumulating over 269K combined views across channels. On TikTok, the video generated 164.2K views, 24K likes, and an organic reach of 98% among non-followers, capturing a 13% full-watch completion rate and an 11-second average watch time. Notably, the project demonstrated deep audience connection with a high-intent audience makeup consisting of 82% returning viewers. On Instagram Reels, the asset expanded its multi-platform footprint by generating 105.2K views, reaching 69.5K unique accounts, and maintaining a strong 16-second average watch time. Across both platforms, the project successfully converted high viewer resonance into a combined growth of nearly 1,000 new followers.",
+      stats:["images/sirap1.png","images/sirap2.png","images/sirap3.png"] },
+    { title:"Fire Snail", 
+      videoSrc:"videos2/siput.mp4", poster:"images/coverSiput3.png",
+      description:"Produced a mid-length 3D animation project (45.83 seconds) that successfully engaged a niche audience segment and demonstrated targeted platform impact, securing over 60K combined views. On Instagram Reels, the asset generated strong performance with 54.4K views, reaching 39K unique accounts, and maintaining a high 18-second average watch time along with over 850 saves and shares. On TikTok, the project accumulated 5.7K views with an organic reach of 86% among non-followers and a notable community response consisting of 62% returning viewers. Across both channels, the highly focused audience engagement translated into stable viewer retention and a combined growth of nearly 280 new followers",
+      stats:["images/siput1.png","images/siput2.png","images/siput3.png"] },
+    { title:"Tarung", 
+      videoSrc:"videos2/tarung.mp4", poster:"images/coverTarung.png",
+      description:"On June 2, 2026, I published a 24.2-second short-form video and tracked its performance across platforms to analyze audience behavior and platform-specific algorithmic reach. On TikTok, the video generated 21.5K views and reached 17.5K unique viewers, effectively tapping into a cold audience with 93% non-followers and a strong 61% returning viewer rate, which converted into 35 new followers with an average watch time of 8.8 seconds (8.32% full completion rate). The performance on Instagram Reels (crossposted to Facebook) proved even stronger for viewer retention and growth, pulling in 24,495 views and reaching 18,042 accounts. Notably, the Reel maintained a much higher average watch time of 12 seconds, keeping viewers for roughly half the video's duration, which directly translated into a significantly higher conversion rate of 106 new follows.",
+      stats:["images/tarung1.png","images/tarung2.png","images/tarung3.png"] },
   ];
+  const statTagLabels = ["OVERVIEW", "VIEWERS", "INSIGHTS"];
 
-  const photos = [
-    {src:"images/photo01.jpg", isTall: false, title:"Composition Matrix I", desc:"An exploration of geometric balance and stark contrast within urban environments. Capturing structural depth and shadow-play mechanics."},
-    {src:"images/photo02.jpg", isTall: true,  title:"Surface Textures & Grain", desc:"Focusing on micro-level material interfaces. Highlighting rough industrial degradation elements against clinical layouts."},
-    {src:"images/photo03.jpg", isTall: false, title:"The In-Between Frames", desc:"Candid structural observations tracking architectural layout adjustments across transitory public terminals."},
-    {src:"images/photo04.jpg", isTall: false, title:"Chroma Isolation Study", desc:"Isolating primary chromatic signals against uniform dark fields to research localized depth emphasis."},
-    {src:"images/photo05.jpg", isTall: true,  title:"Light Mechanics II", desc:"Capturing linear light dispersion through high-density atmospheres during the late evening Golden Hour intervals."},
-    {src:"images/photo06.jpg", isTall: false, title:"Asymmetric Balance Node", desc:"Framing landscape elements with architectural frameworks to isolate modern geometry rules."},
-    {src:"images/photo07.jpg", isTall: false, title:"Monochrome Layout Study", desc:"Stripping tone down entirely to focus explicitly on shape weight, spatial value allocation, and contrast depth."},
-    {src:"images/photo08.jpg", isTall: true,  title:"Kinetic Blur & Stillness", desc:"Contrasting high-speed environmental movement paths against hyper-stabilized anchor targets in center-frame."},
-    {src:"images/photo09.jpg", isTall: false, title:"Refractive Surface Layers", desc:"Documenting multiple visual dimensions captured simultaneously via intersecting mirrors and heavy glass distortions."},
-    {src:"images/photo10.jpg", isTall: false, title:"Terminal Horizon Line", desc:"A clinical minimal framing emphasizing infinite linear convergence points over wide terrain assets."},
-  ];
-
-  /* ---------------- Render Components ---------------- */
-  const videoGrid = document.getElementById('videoGrid');
+  const reelWrap = document.getElementById('reelWrap');
   films.forEach((f, i) => {
-    const card = document.createElement('div');
-    card.className = 'video-card';
-    card.tabIndex = 0;
-    card.setAttribute('role', 'button');
-    card.innerHTML = `
-      <div class="video-card-visual">
-        <img src="${f.poster}" alt="${f.title}" loading="lazy">
-        <div class="video-card-overlay"><div class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-      </div>
-      <div class="video-card-info">
-        <div class="video-card-header">
-          <span class="video-card-index">${String(i+1).padStart(2,'0')}</span>
-          <span class="video-card-title">${f.title}</span>
-        </div>
-        <div class="video-card-meta"><span>${f.role}</span><span>${f.runtime}</span></div>
-      </div>`;
-    card.querySelector('img').onerror = function() { this.src = `https://picsum.photos/seed/${encodeURIComponent(f.title)}/540/960`; };
-    card.addEventListener('click', () => openLightbox('video', f.src, f.title));
-    videoGrid.appendChild(card);
-  });
-
-  const photoContainer = document.getElementById('photoSplitGrid');
-  photos.forEach((p, i) => {
     const row = document.createElement('div');
-    row.className = 'photo-row' + (p.isTall ? ' tall-aspect' : '');
-    
-    const photoSide = document.createElement('div');
-    photoSide.className = 'photo-side';
-    photoSide.tabIndex = 0;
-    
-    const img = document.createElement('img');
-    img.loading = 'lazy';
-    img.src = p.src;
-    img.onerror = function(){ this.src = p.isTall ? `https://picsum.photos/seed/${encodeURIComponent(p.title)}/1000/1250` : `https://picsum.photos/seed/${encodeURIComponent(p.title)}/1200/750`; };
-    photoSide.appendChild(img);
-    
-    const textSide = document.createElement('div');
-    textSide.className = 'text-side';
-    textSide.innerHTML = `
-      <div class="photo-meta-num">// SELECTION_${String(i+1).padStart(2,'0')}</div>
-      <div class="photo-title">${p.title}</div>
-      <div class="photo-desc">${p.desc}</div>`;
-    
-    photoSide.addEventListener('click', () => openLightbox('image', img.src, p.title));
-    row.appendChild(photoSide);
-    row.appendChild(textSide);
-    photoContainer.appendChild(row);
+    row.className = 'reel-row';
+
+    const label = document.createElement('div');
+    label.className = 'reel-row-label';
+    label.innerHTML = `
+      <span class="reel-row-index">${String(i+1).padStart(2,'0')}</span>
+      <span class="reel-row-title">${f.title}</span>
+      <span class="reel-row-meta">${f.role || ''} ${f.runtime ? '&middot; ' + f.runtime : ''} ${f.year ? '&middot; ' + f.year : ''}</span>`;
+
+    const frame = document.createElement('div');
+    frame.className = 'reel-frame';
+    const inner = document.createElement('div');
+    inner.className = 'reel-frame-inner';
+
+    // 1. Video panel
+    const videoPanel = document.createElement('div');
+    videoPanel.className = 'reel-video-panel';
+    videoPanel.innerHTML = `
+      <img src="${f.poster}" alt="${f.title}" loading="lazy">
+      <div class="reel-play-overlay"><div class="reel-play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>`;
+    videoPanel.querySelector('img').onerror = function(){ this.src = `https://picsum.photos/seed/${encodeURIComponent(f.title)}/540/960`; };
+    videoPanel.addEventListener('click', () => openLightbox('video', f.videoSrc, f.title));
+    inner.appendChild(videoPanel);
+
+    // 2. Swappable analytics carousel
+    const carousel = document.createElement('div');
+    carousel.className = 'reel-carousel';
+    const track = document.createElement('div');
+    track.className = 'reel-carousel-track';
+
+    f.stats.forEach((statSrc, si) => {
+      const slide = document.createElement('div');
+      slide.className = 'reel-carousel-slide' + (si === 0 ? ' active' : '');
+      slide.innerHTML = `
+        <span class="reel-carousel-tag">${statTagLabels[si]}</span>
+        <img src="${statSrc}" alt="${f.title} ${statTagLabels[si].toLowerCase()}" loading="lazy">`;
+      slide.querySelector('img').onerror = function(){ this.src = `https://picsum.photos/seed/${encodeURIComponent(f.title+statTagLabels[si])}/540/960`; };
+      slide.addEventListener('click', () => openLightbox('image', slide.querySelector('img').src, `${f.title} — ${statTagLabels[si]}`));
+      track.appendChild(slide);
+    });
+
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'reel-carousel-arrow prev';
+    prevBtn.setAttribute('aria-label', 'Previous stat');
+    prevBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6v12z"/></svg>`;
+
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'reel-carousel-arrow next';
+    nextBtn.setAttribute('aria-label', 'Next stat');
+    nextBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6V6z"/></svg>`;
+
+    const dotsWrap = document.createElement('div');
+    dotsWrap.className = 'reel-carousel-dots';
+    const dots = f.stats.map((_, di) => {
+      const dot = document.createElement('button');
+      dot.className = 'reel-carousel-dot' + (di === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `Show ${statTagLabels[di]}`);
+      dotsWrap.appendChild(dot);
+      return dot;
+    });
+
+    let activeIndex = 0;
+    const slides = () => track.querySelectorAll('.reel-carousel-slide');
+    function goTo(idx){
+      const total = f.stats.length;
+      activeIndex = (idx + total) % total;
+      slides().forEach((s, si) => s.classList.toggle('active', si === activeIndex));
+      dots.forEach((d, di) => d.classList.toggle('active', di === activeIndex));
+    }
+    prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(activeIndex - 1); });
+    nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(activeIndex + 1); });
+    dots.forEach((d, di) => d.addEventListener('click', (e) => { e.stopPropagation(); goTo(di); }));
+
+    carousel.appendChild(track);
+    carousel.appendChild(prevBtn);
+    carousel.appendChild(nextBtn);
+    carousel.appendChild(dotsWrap);
+    inner.appendChild(carousel);
+
+    // 3. Text panel
+    const textPanel = document.createElement('div');
+    textPanel.className = 'reel-text-panel';
+    textPanel.innerHTML = `
+      <div class="reel-text-title">${f.title}</div>
+      <p class="reel-text-body">${f.description}</p>`;
+    inner.appendChild(textPanel);
+
+    frame.appendChild(inner);
+    row.appendChild(label);
+    row.appendChild(frame);
+    reelWrap.appendChild(row);
   });
 
-  /* ---------------- Lightbox ---------------- */
+  /* ---------------- Lightbox Logic ---------------- */
   const lightbox = document.getElementById('lightbox');
   const lightboxContent = document.getElementById('lightboxContent');
+  const lightboxClose = document.getElementById('lightboxClose');
   const lightboxCap = document.getElementById('lightboxCap');
+  const fcTrack = document.getElementById('fcTrack');
+  const fcNow = document.getElementById('fcNow');
 
-  function openLightbox(type, src, caption){
+  function openLightbox(type, src, cap) {
     lightboxContent.innerHTML = '';
-    if(type === 'image'){
-      const img = document.createElement('img'); img.src = src; lightboxContent.appendChild(img);
+    lightboxCap.textContent = cap;
+    if (type === 'video') {
+      const vid = document.createElement('video');
+      vid.src = src;
+      vid.controls = true;
+      vid.autoplay = true;
+      vid.className = 'vertical-video-player';
+      lightboxContent.appendChild(vid);
     } else {
-      const video = document.createElement('video'); video.className = 'vertical-video-player';
-      video.src = src; video.controls = true; video.autoplay = true; lightboxContent.appendChild(video);
+      const img = document.createElement('img');
+      img.src = src;
+      lightboxContent.appendChild(img);
     }
-    lightboxCap.textContent = caption;
     lightbox.classList.add('open');
   }
-  
-  const closeAction = () => { lightbox.classList.remove('open'); const v = lightboxContent.querySelector('video'); if(v) v.pause(); };
-  document.getElementById('lightboxClose').addEventListener('click', closeAction);
-  lightbox.addEventListener('click', e => { if(e.target === lightbox) closeAction(); });
 
-  /* ---------------- Scroll Indicators ---------------- */
-  const totalFrames = films.length + photos.length;
-  document.getElementById('fcTotal').textContent = String(totalFrames).padStart(3,'0');
-  
+  lightboxClose.addEventListener('click', () => {
+    lightbox.classList.remove('open');
+    lightboxContent.innerHTML = '';
+  });
+
+  /* ---------------- Scroll Progress & Frame Tracker ---------------- */
   window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = max > 0 ? scrolled / max : 0;
-    document.getElementById('fcTrack').style.width = (pct * 100) + '%';
-    document.getElementById('fcNow').textContent = String(Math.min(totalFrames, Math.max(1, Math.round(pct * totalFrames)))).padStart(3,'0');
+    const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    fcTrack.style.width = scrolled + '%';
     
-    const sections = ['top','films','photos','contact'];
-    let current = sections[0];
-    for(const id of sections){
-      const el = document.getElementById(id);
-      if(el && el.getBoundingClientRect().top < window.innerHeight * 0.5) current = id;
-    }
-    document.querySelectorAll('nav a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
-  }, {passive:true});
+    const frameIndex = Math.floor(winScroll / 10);
+    fcNow.textContent = `[F:${String(frameIndex).padStart(5, '0')}]`;
+
+    // Active Nav Highlight
+    const sections = document.querySelectorAll('main > section, footer');
+    let currentActive = 'top';
+    sections.forEach(s => {
+      const top = s.offsetTop - 160;
+      if (winScroll >= top) {
+        currentActive = s.id || 'top';
+      }
+    });
+    document.querySelectorAll('nav a').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + currentActive || (currentActive === 'top' && a.getAttribute('href') === '#top'));
+    });
+  });
 </script>
 </body>
 </html>
